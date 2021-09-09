@@ -3,10 +3,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import LiteratureSearchContainer from '../../literature/containers/LiteratureSearchContainer';
-import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
+import {
+  AUTHOR_PUBLICATIONS_NS,
+  AUTHOR_HIGHLIGHTS_NS,
+} from '../../search/constants';
 import { isCataloger, isSuperUser } from '../../common/authorization';
 import AssignViewContext from '../AssignViewContext';
 import AssignDrawerContainer from './AssignDrawerContainer';
+import AuthorHighlightsContainer from '../../literature/containers/AuthorHighlightsContainer/AuthorHighlightsContainer';
+import LiteratureItem from '../../literature/components/LiteratureItem';
 
 export function AuthorPublications({ authorFacetName, assignView }) {
   const baseQuery = useMemo(
@@ -24,6 +29,16 @@ export function AuthorPublications({ authorFacetName, assignView }) {
 
   return (
     <AssignViewContext.Provider value={assignView}>
+      <AuthorHighlightsContainer
+        namespace={AUTHOR_HIGHLIGHTS_NS}
+        renderItem={(result) => (
+          <Row>
+            <Col flex="1 1 1px">
+              <LiteratureItem metadata={result.get('metadata')} />
+            </Col>
+          </Row>
+        )}
+      />
       <LiteratureSearchContainer
         namespace={AUTHOR_PUBLICATIONS_NS}
         baseQuery={baseQuery}

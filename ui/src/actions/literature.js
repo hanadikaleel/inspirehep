@@ -12,6 +12,9 @@ import {
   LITERATURE_SELECTION_SET,
   LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY,
   LITERATURE_SELECTION_CLEAR,
+  INITIAL_FORM_DATA_REQUEST,
+  INITIAL_FORM_DATA_ERROR,
+  INITIAL_FORM_DATA_SUCCESS,
 } from './actionTypes';
 import { isCancelError } from '../common/http.ts';
 import { httpErrorToActionPayload } from '../common/utils';
@@ -25,6 +28,28 @@ import {
   exportToCdsError,
   exporting,
 } from '../literature/assignNotification';
+import Highlights from '../authors/components/Highlights';
+
+function fetchingInitialFormData(payload) {
+  return {
+    type: INITIAL_FORM_DATA_REQUEST,
+    payload, // only used for testing
+  };
+}
+
+function fetchInitialFormDataError(error) {
+  return {
+    type: INITIAL_FORM_DATA_ERROR,
+    payload: error,
+  };
+}
+
+function fetchInitialFormDataSuccess(data) {
+  return {
+    type: INITIAL_FORM_DATA_SUCCESS,
+    payload: data,
+  };
+}
 
 function fetchingLiteratureReferences(query) {
   return {
@@ -168,6 +193,35 @@ export function exportToCds() {
       dispatch(clearLiteratureSelection());
     } catch (error) {
       exportToCdsError();
+    }
+  };
+}
+
+export function getHighlightedRecords(id) {
+  return async (dispatch, http) => {
+    dispatch(fetchingInitialFormData({ id }));
+    try {
+      const response = await http.get(`/authors/highlights/${id}`);
+      console.log(response);
+      dispatch(fetchInitialFormDataSuccess(response.data.highlighted_records));
+    } catch (error) {
+      const errorPayload = httpErrorToActionPayload(error);
+      dispatch(fetchInitialFormDataError(errorPayload));
+    }
+  };
+}
+
+export function addHighlightedRecords() {
+  return async (dispatch, http) => {
+    try {
+      await http.post('/authors/highlights', {
+        author_recid: '1234',
+        literature_recids: ['1234'],
+      });
+      dispatch(Highlights());
+    } catch (error) {
+      const errorPayload = httpErrorToActionPayload(error);
+      dispatch(fetchInitialFormDataError(errorPayload));
     }
   };
 }

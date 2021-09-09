@@ -31,6 +31,7 @@ import AssignAllActionContainer from '../../authors/containers/AssignAllActionCo
 import ToolActionContainer from './ToolActionContainer';
 import LiteratureSelectAllContainer from './LiteratureSelectAllContainer';
 import LiteratureSelectContainer from './LiteratureSelectContainer';
+import Highlights from '../../authors/components/Highlights';
 
 function LiteratureSearch({
   loading,
@@ -106,6 +107,7 @@ function LiteratureSearch({
                 <VerticalDivider />
                 <CiteAllActionContainer namespace={namespace} />
                 {assignAuthorView && <AssignAllActionContainer />}
+                <Highlights />
                 {assignConferenceView && <ToolActionContainer />}
               </Col>
               <Col xs={8} lg={0}>

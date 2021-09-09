@@ -7,6 +7,7 @@ import {
   JOBS_NS,
   AUTHOR_PUBLICATIONS_NS,
   CONFERENCE_CONTRIBUTIONS_NS,
+  AUTHOR_HIGHLIGHTS_NS,
   INSTITUTIONS_NS,
   INSTITUTION_PAPERS_NS,
   AUTHOR_CITATIONS_NS,
@@ -81,6 +82,9 @@ const namespacesState = {
     baseAggregationsQuery: {
       facet_name: 'hep-author-citations',
     },
+  },
+  [AUTHOR_HIGHLIGHTS_NS]: {
+    ...initialNamespaceState,
   },
   [CONFERENCE_CONTRIBUTIONS_NS]: {
     ...initialNamespaceState,

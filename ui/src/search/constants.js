@@ -11,6 +11,7 @@ import {
 export const AUTHORS_NS = 'authors';
 export const LITERATURE_NS = 'literature';
 export const JOBS_NS = 'jobs';
+export const AUTHOR_HIGHLIGHTS_NS = 'authorHighlights';
 export const AUTHOR_PUBLICATIONS_NS = 'authorPublications';
 export const AUTHOR_CITATIONS_NS = 'authorCitations';
 export const CONFERENCE_CONTRIBUTIONS_NS = 'conferenceContributions';
@@ -56,6 +57,7 @@ export const NAMESPACE_TO_PATHNAME = {
   [EXISTING_CONFERENCES_NS]: CONFERENCES_NS,
   [EXPERIMENT_PAPERS_NS]: LITERATURE,
   [AUTHOR_SEMINARS_NS]: SEMINARS,
+  [AUTHOR_HIGHLIGHTS_NS]: LITERATURE,
   [LITERATURE_SEMINARS_NS]: SEMINARS,
   [ASSIGN_AUTHOR_NS]: AUTHORS,
   [ASSIGN_CONFERENCE_NS]: CONFERENCES,
